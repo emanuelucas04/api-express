@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { CreateRoleUseCase } from './CreateRoleUseCase'
 import { container } from 'tsyringe'
+import { CreateRoleUseCase } from './CreateRoleUseCase'
 
 export class CreateRoleController {
   async handler(request: Request, response: Response): Promise<Response> {

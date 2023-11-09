@@ -1,7 +1,14 @@
 import { v4 as uuidv4 } from 'uuid'
-import { Column, CreateDateColumn, ManyToOne, PrimaryColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm'
 import { Role } from '@roles/entities/Role'
 
+@Entity('users')
 export class User {
   @PrimaryColumn()
   id?: string

@@ -4,6 +4,7 @@ import path from 'node:path'
 import { inject, injectable } from 'tsyringe'
 import uploadConfig from '@config/upload'
 import fs from 'node:fs'
+import { User } from '@users/entities/User'
 
 type UpdateAvatarDTO = {
   userId: string

@@ -1,5 +1,5 @@
 import {
-  IUsersRespository,
+  IUsersRepository,
   UsersPaginateProperties,
 } from '@users/repositories/IUsersRepository'
 import { inject, injectable } from 'tsyringe'
@@ -12,7 +12,7 @@ type ListUsersUseCaseParams = {
 @injectable()
 export class ListUsersUseCase {
   constructor(
-    @inject('UsersRepository') private usersRepository: IUsersRespository,
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
   ) {}
 
   async execute({

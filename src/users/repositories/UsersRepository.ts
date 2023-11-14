@@ -1,14 +1,14 @@
 import { User } from '@users/entities/User'
 import {
   CreateUserDTO,
-  IUsersRespository,
+  IUsersRepository,
   PaginateParams,
   UsersPaginateProperties,
 } from './IUsersRepository'
 import { Repository } from 'typeorm'
 import { dataSource } from '@shared/typeorm'
 
-export class UsersRepository implements IUsersRespository {
+export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>
 
   constructor() {

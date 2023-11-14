@@ -2,7 +2,7 @@ import { IRolesRepository } from '@roles/repositories/IRolesRepository'
 import { AppError } from '@shared/errors/AppError'
 import { User } from '@users/entities/User'
 import { hash } from 'bcryptjs'
-import { IUsersRespository } from '@users/repositories/IUsersRepository'
+import { IUsersRepository } from '@users/repositories/IUsersRepository'
 import { inject, injectable } from 'tsyringe'
 
 type CreateUserDTO = {
@@ -16,7 +16,7 @@ type CreateUserDTO = {
 @injectable()
 export class CreateUserUseCase {
   constructor(
-    @inject('UsersRepository') private usersRepository: IUsersRespository,
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
     @inject('RolesRepository') private rolesRepository: IRolesRepository,
   ) {}
 

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import { compare } from 'bcryptjs'
 import jwtConfig from '@config/auth'
-import { IUsersRespository } from '@users/repositories/IUsersRepository'
+import { IUsersRepository } from '@users/repositories/IUsersRepository'
 import { User } from '@users/entities/User'
 import { AppError } from '@shared/errors/AppError'
 import { sign } from 'jsonwebtoken'
@@ -19,7 +19,7 @@ type IResponse = {
 @injectable()
 export class CreateLoginUseCase {
   constructor(
-    @inject('UsersRepository') private usersRepository: IUsersRespository,
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
   ) {}
 
   async execute({ email, password }: CreateLoginDTO): Promise<IResponse> {

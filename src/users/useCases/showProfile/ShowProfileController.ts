@@ -3,7 +3,7 @@ import { container } from 'tsyringe'
 import { ShowProfileUseCase } from './ShowProfileUseCase'
 import { instanceToInstance } from 'class-transformer'
 
-export class CreateUserController {
+export class ShowProfileController {
   async handler(request: Request, response: Response): Promise<Response> {
     const showProfileUseCase = container.resolve(ShowProfileUseCase)
     const userId = request.user.id

@@ -9,12 +9,14 @@ import { CreateLoginController } from '@users/useCases/createLogin/CreateLoginCo
 import { isAuthenticated } from '@shared/http/middlewares/isAuthenticated'
 import uploadConfig from '@config/upload'
 import { UpdateAvatarController } from '@users/useCases/updateAvatar/UpdateAvatarController'
+import { ShowProfileController } from '@users/useCases/showProfile/ShowProfileController'
 
 const usersRouter = Router()
 const createUserController = container.resolve(CreateUserController)
 const listUsersController = container.resolve(ListUsersController)
 const createLoginController = container.resolve(CreateLoginController)
 const updateAvatarController = container.resolve(UpdateAvatarController)
+const showProfileController = container.resolve(ShowProfileController)
 const upload = multer(uploadConfig)
 
 usersRouter.post(
@@ -69,5 +71,9 @@ usersRouter.patch(
     return updateAvatarController.handler(request, response)
   },
 )
+
+usersRouter.get('/profile', isAuthenticated, (request, response) => {
+  return showProfileController.handler(request, response)
+})
 
 export { usersRouter }

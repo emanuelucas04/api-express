@@ -341,6 +341,85 @@
             "description": "Role not found"
           }
         }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "Returns all users paginated",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of the page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": "page=1"
+            },
+            "style": "label"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "NUmber of registers per page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": "limit=15"
+            },
+            "style": "label"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "per_page": 15,
+                  "total": 2,
+                  "current_page": 1,
+                  "data": [
+                    {
+                      "id": "11fb6377-afd0-4ba0-a8df-bd7c407492f8",
+                      "name": "John Doe",
+                      "email": "j@d.com",
+                      "isAdmin": false,
+                      "avatar": "1d81340166faa7a1f35f_genebra.jpeg",
+                      "created_at": "2023-11-14T12:32:29.000Z",
+                      "role": {
+                        "id": "41daaeec-065d-42e0-b57f-909c6068eecd",
+                        "name": "Teste",
+                        "created_at": "2023-11-14T12:32:16.000Z"
+                      },
+                      "avatar_url": "http://localhost:3000/files/1d81340166faa7a1f35f_genebra.jpeg"
+                    },
+                    {
+                      "id": "fa01422e-b969-4c3f-b6b4-f357910e022d",
+                      "name": "admin",
+                      "email": "a@a.com",
+                      "isAdmin": true,
+                      "avatar": "225c487d19ca0d5d6834_48ba396626.jpeg",
+                      "created_at": "2023-11-13T14:27:50.000Z",
+                      "role": {
+                        "id": "02b117ef-cda2-48ca-8f68-2be31ac05a53",
+                        "name": "T.I.",
+                        "created_at": "2023-11-13T14:27:50.000Z"
+                      },
+                      "avatar_url": "http://localhost:3000/files/225c487d19ca0d5d6834_48ba396626.jpeg"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Invalid authentication token."
+          }
+        }
       }
     }
   }

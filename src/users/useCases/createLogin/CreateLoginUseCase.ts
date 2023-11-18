@@ -5,6 +5,7 @@ import { IUsersRepository } from '@users/repositories/IUsersRepository'
 import { User } from '@users/entities/User'
 import { AppError } from '@shared/errors/AppError'
 import { sign } from 'jsonwebtoken'
+import { IRefreshTokenRepository } from '@users/repositories/IRefreshTokenRepository'
 
 type CreateLoginDTO = {
   email: string
@@ -13,13 +14,16 @@ type CreateLoginDTO = {
 
 type IResponse = {
   user: User
-  token: string
+  accessToken: string
+  refreshToken: string
 }
 
 @injectable()
 export class CreateLoginUseCase {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository,
+    @inject('RefreshTokenRepository')
+    private refreshTokenRepository: IRefreshTokenRepository,
   ) {}
 
   async execute({ email, password }: CreateLoginDTO): Promise<IResponse> {
@@ -33,14 +37,26 @@ export class CreateLoginUseCase {
       throw new AppError('Incorrent email/password', 401)
     }
 
-    const token = sign({}, jwtConfig.jwt.secret, {
+    const accessToken = sign({}, jwtConfig.jwt.secret, {
       subject: user.id,
       expiresIn: jwtConfig.jwt.expiresIn,
     })
 
+    const expires = new Date(Date.now() + jwtConfig.refreshToken.duration)
+    const refreshToken = sign({}, jwtConfig.refreshToken.secret, {
+      subject: user.id,
+      expiresIn: jwtConfig.refreshToken.expiresIn,
+    })
+    await this.refreshTokenRepository.create({
+      token: refreshToken,
+      expires,
+      user_id: user.id,
+      valid: true,
+    })
     return {
       user,
-      token,
+      accessToken,
+      refreshToken,
     }
   }
 }
